@@ -1,0 +1,9 @@
+  <h1>Add Logbook Entry</h1>
+  <form method="post">
+    {% csrf_token %}
+    <label for="date">Date:</label>
+    <input type="date" name="date" required><br>
+    <label for="activity">Activity:</label>
+    <textarea name="activity" required></textarea><br>
+    <button type="submit">Add Entry</button>
+  </form>

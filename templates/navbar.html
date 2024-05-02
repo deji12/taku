@@ -1,0 +1,18 @@
+<!Doctype html>
+<header>
+    <div>
+        <a href="{% url "home" %}">SRIAS</a>
+    </div>
+    <!--Logged In-->
+    {%if request.user.is_authenticated%}
+    <div>
+        <p>
+            {{request.user.username}}<span>@{{request.user.username}}</span>
+        </p>
+        <a href="{% url "users:logout-page" %}">Logout</a>
+    </div>
+    {%else%}
+    <!--Not Logged In-->
+    <a href="{% url "login-page" %}">Login</a>
+    {%endif%}
+</header>

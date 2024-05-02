@@ -1,0 +1,10 @@
+<h1>Lecturer Dashboard</h1>
+<div>
+	<h2>Students Assigned to {{lecturer.username}}</h2>
+		<ul>
+			{% for student in students %}
+				<li>{{ student.first_name }} {{ student.last_name }}({{ student.email }})  <a href="{% url 'users:initiate_deregistration' student.username %}">De-register</a></li>
+			{% endfor %}
+		</ul> 
+</div>
+

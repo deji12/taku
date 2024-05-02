@@ -1,0 +1,6 @@
+<h1>Initiate De-registration</h1>
+<form method="post">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<button type="submit">Initiate De-registration</button>
+</form>

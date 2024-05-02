@@ -1,0 +1,29 @@
+<h1>Student Name: {{ student.first_name }} {{ student.last_name }}</h1>
+
+<!-- Messages -->
+<h2>Messages</h2>
+<ul>
+    {% for message in messages %}
+        <li>
+            {{ message.text }}
+            ({{ message.sent_at }})
+        </li>
+    {% endfor %}
+</ul>
+
+<!-- Call Link -->
+<a href="{% url 'make_call' student.id %}">Make Call</a>
+
+<!-- Logbook Link -->
+<a href="{% url 'view_logbook' student.id %}">View Logbook</a>
+
+<!-- Back Link -->
+<a href="{% url 'lecturer_dashboard' %}">Back to Dashboard</a>
+
+<div>
+	{% include 'chat/_message.html' %}
+</div>
+<div>
+	<a href="{% url 'chat:chat' %}">Start Call</a>
+	<a href="{% url 'logbook:logbook_lecturer_view' %}">Logbook</a>
+</div>

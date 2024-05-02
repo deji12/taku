@@ -1,0 +1,25 @@
+  <h1>Logbook Entries</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Student</th>
+        <th>Date</th>
+        <th>Activity</th>
+        <th>Assessment</th>
+        <th>Mark</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for entry in entries %}
+        <tr>
+          <td>{{ entry.student }}</td>
+          <td>{{ entry.date }}</td>
+          <td>{{ entry.activity }}</td>
+          <td>{{ entry.assessment }}</td>
+          <td>{{ entry.mark }}</td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="5">No entries yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>

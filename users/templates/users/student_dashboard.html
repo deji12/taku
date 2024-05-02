@@ -1,0 +1,10 @@
+<h1>Student Dashboard</h1>
+
+<div>
+	<h2>Messages from Lecturer</h2>
+	{% include 'chat/_message.html' %}
+</div>
+<div>
+	<a href="{% url 'logbook:logbook_student_view' %}">Logbook</a>
+	<a href="{% url 'chat:chat' %}">Start Call</a>
+</div>

@@ -1,0 +1,8 @@
+<h1>Assignments</h1>
+<ul>
+    {% for assignment in assignments %}
+        <li>
+            {{ assignment.student.first_name }} {{ assignment.student.last_name }}-> <a href="{% url 'chat:private-room' assignment.id %}">{{ assignment.lecturer.first_name }} {{ assignment.lecturer.last_name }}</a> - {{ assignment.assessment_date }}
+        </li>
+    {% endfor %}
+</ul>

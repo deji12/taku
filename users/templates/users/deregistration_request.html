@@ -1,0 +1,8 @@
+<h1>Deregistration Request</h1>
+<p>Student: {{ request.student.name }}</p>
+<p>Reason: {{ request.reason }}</p>
+<p>Status: {{ request.status }}</p>
+{% if request.status == 'pending' %}
+    <a href="{% url 'approve_deregistration' request.id %}">Approve</a>
+    <a href="{% url 'reject_deregistration' request.id %}">Reject</a>
+{% endif %}

@@ -1,0 +1,45 @@
+{% extends 'chat/main.html' %}
+{% load static %}
+{% block content %}
+
+<main>
+    <section id="room-name-wrapper">
+        <p>Meeting Name: <span id="room-name"></span></p>
+        <button id="generate-link">Generate Call Link</button>
+    </section>
+
+    <section id="video-streams"></section>
+
+    <section id="controls-wrapper">
+        <div class="icon-wrapper">
+            <img class="control-icon" id="mic-btn" src="{% static 'images/microphone.svg' %}" />
+        </div>
+
+        <div class="icon-wrapper">
+            <img class="control-icon" id="camera-btn" src="{% static 'images/video.svg' %}" />
+        </div>
+
+        <div class="icon-wrapper">
+            <img class="control-icon" id="leave-btn" src="{% static 'images/leave.svg' %}" />
+        </div>
+    </section>
+</main>
+
+
+<script type="text/javascript" src="{% static 'assets/AgoraRTC_N-4.8.0.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/streams.js' %}" ></script>
+<script>
+    document.getElementById('generate-link').addEventListener('click', async () => {
+        let roomName = sessionStorage.getItem('room')
+        let response = await fetch(`/get_token/?channel=${roomName}`)
+        let data = await response.json()
+    
+        let link = `${window.location.origin}/room/?room=${roomName}&UID=${data.uid}&token=${data.token}`
+        console.log('Generated link:', link)
+    
+        // You can copy the link to the clipboard or open it in a new tab, for example:
+        navigator.clipboard.writeText(link)
+        // window.open(link, '_blank')
+    })
+</script>
+{% endblock content %}

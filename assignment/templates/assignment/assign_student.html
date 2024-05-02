@@ -1,0 +1,7 @@
+<h2>Assign Students to Lecturers</h2>
+<p>Student Name: {{student.first_name}} {{student.last_name}}</p>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Assign</button>
+</form>

@@ -1,0 +1,6 @@
+<h1>Capture Marks</h1>
+<form method="post">
+	{% csrf_token %}
+	{{ assessment_form.as_p }}
+	<button type="submit">Submit</button>
+</form>

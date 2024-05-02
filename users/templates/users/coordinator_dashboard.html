@@ -1,0 +1,82 @@
+<h1>Coordinator Dashboard</h1>
+<h2>Lecturers</h2>
+<ul>
+	{% for lecturer in lecturers %}
+		<li>{{ lecturer.first_name }} {{ lecturer.last_name }} ({{ lecturer.email }})</li>
+	{% endfor %}
+    <a href="{% url 'users:register-staff' %}">Add Lecturer or Internship Coordinator</a>
+</ul>
+
+<div class="filter-container">
+	<h2>Students</h2>
+	<select id="studentFilter">
+		<option disabled selected>Select an option</option>
+		<option value="assigned">Assigned Students</option>
+		<option value="unassigned">Unassigned Students</option>
+		<option value="all">All Students</option>
+	</select>
+	
+	<!-- Display all students -->
+	<div id="allStudents" class="student-section">
+		<h2>All Students</h2>
+		<ul>
+			{% for student in all_students %}
+				<li>{{ student.first_name }} {{ student.last_name }}
+				{% if student.assignment_set.all %}
+					(Assigned to {{ student.assignment_set.first.lecturer.name }})
+				{% else %}
+					<a href="{% url 'assignment:assign_student' student.username %}">Assign Lecturer</a>
+				{% endif %}
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+	
+	<!-- Display assigned students -->
+	<div id="assignedStudents" class="student-section" style="display: none;">
+		<h2>Assigned Students</h2>
+		<ul>
+			{% for student in assigned_students %}
+				<li>{{ student.first_name }} {{ student.last_name }} (Assigned to {{ student.assignment.lecturer.name }})</li>
+			{% endfor %}
+		</ul>
+	</div>
+	
+	<!-- Display unassigned students -->
+	<div id="unassignedStudents" class="student-section" style="display: none;">
+		<h2>Unassigned Students</h2>
+		<ul>
+			{% for student in unassigned_students %}
+				<li>{{ student.first_name }} {{ student.last_name }} <a href="{% url 'assignment:assign_student' student.username %}">Assign Lecturer</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+
+</div>
+
+<h2>Pending De-Registrations</h2>
+<ul>
+	{% for request in pending_de_registrations %}
+		<li>{{ request.student.name }} ({{ request.reason }})</li>
+	{% endfor %}
+</ul>
+ 
+<!-- JavaScript -->
+<script>
+    document.getElementById('studentFilter').addEventListener('change', function() {
+        var selectedOption = this.value;
+        var sections = document.getElementsByClassName('student-section');
+
+        for (var i = 0; i < sections.length; i++) {
+            sections[i].style.display = 'none';
+        }
+
+        if (selectedOption === 'all') {
+            document.getElementById('allStudents').style.display = 'block';
+        } else if (selectedOption === 'assigned') {
+            document.getElementById('assignedStudents').style.display = 'block';
+        } else if (selectedOption === 'unassigned') {
+            document.getElementById('unassignedStudents').style.display = 'block';
+        }
+    });
+</script>

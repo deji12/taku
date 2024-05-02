@@ -1,0 +1,35 @@
+<form method="get">
+    {% csrf_token %}
+    <label for="start_date">Start Date:</label>
+    <input type="date" id="start_date" name="start_date">
+    <label for="end_date">End Date:</label>
+    <input type="date" id="end_date" name="end_date">
+    <label for="min_assessment_one_marks">Minimum Assessment One Marks:</label>
+    <input type="number" id="min_assessment_one_marks" name="min_assessment_one_marks">
+    <label for="max_assessment_one_marks">Maximum Assessment One Marks:</label>
+    <input type="number" id="max_assessment_one_marks" name="max_assessment_one_marks">
+    <label for="min_assessment_two_marks">Minimum Assessment Two Marks:</label>
+    <input type="number" id="min_assessment_two_marks" name="min_assessment_two_marks">
+    <label for="max_assessment_two_marks">Maximum Assessment Two Marks:</label>
+    <input type="number" id="max_assessment_two_marks" name="max_assessment_two_marks">
+    <buttontype="submit">Filter</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Student</th>
+            <th>Assessment One Marks</th>
+            <th>Assessment Two Marks</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for assessment in assessments %}
+            <tr>
+                <td>{{ assessment.student }}</td>
+                <td>{{ assessment.assessment_one_marks }}</td>
+                <td>{{ assessment.assessment_two_marks }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

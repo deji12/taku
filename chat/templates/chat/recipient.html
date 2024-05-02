@@ -1,0 +1,49 @@
+<form method="POST" action="{% url 'chat:handle_video_call_invitation_response' video_call.id %}">
+    {% csrf_token %}
+    <button type="submit" name="action" value="accept">Accept Video Call</button>
+    <button type="submit" name="action" value="reject">Reject Video Call</button>
+</form>
+
+<script>
+    const recipientUsername = '{{ video_call.recipient.username }}';
+    const callerUsername = '{{ video_call.caller.username }}';
+    const roomName = callerUsername + '_' + recipientUsername; // Add this line
+
+    // ...
+
+    function acceptVideoCall(callerUsername) {
+        // Make AJAX request to accept video call
+        fetch(`/accept_video_call/${callerUsername}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            // Redirect to the video call page with the room name
+            window.open(`/room/?channel=${roomName}`, '_self');
+        })
+        .catch(error => console.error(error));
+    }
+    function initiateVideoCall(recipientUsername) {
+    // Make AJAX request to initiate video call
+    fetch(`/initiate_video_call/${recipientUsername}/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        // Redirect to the video call invitation page with the video_call_id and room_name
+        const roomName = recipientUsername + '_' + '{{ request.user.username }}';
+        window.location.href = `/video_call_invitation/${data.video_call_id}/?room_name=${roomName}`;
+    })
+    .catch(error => console.error(error));
+}
+</script>
